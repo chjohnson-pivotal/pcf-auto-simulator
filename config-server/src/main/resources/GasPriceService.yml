@@ -1,0 +1,8 @@
+gas:
+  service:
+    apiKey: u3t7n5vzxl  
+
+server:
+   port: 8082
+   
+   

@@ -1,0 +1,8 @@
+google:
+  service:
+    apiKey: AIzaSyCJNAAvyohMMJ8lWDFnQxKtumpJB-7idvE  
+
+server:
+   port: 8083
+   
+   

@@ -1,0 +1,30 @@
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://F6qwCbnS8XNg:rl4ythRp9FFJ@eureka-e3fc660a-2ba6-4869-9881-252e60490ffd.west-1.fe.gopivotal.com/
+
+#spring:
+#  cloud:
+#    config:
+#      uri: http://cqQkTeH5wEER:O5zMVy3tGeJM@config-71d5bdea-64b0-4f7f-b16a-b55e586cd0d6.west-1.fe.gopivotal.com/ 
+    
+#RepairService:
+#  ribbon:
+#    listOfServers: repair-service.cfapps.io
+    
+#ribbon:
+#  eureka:
+#    enabled: true
+
+#server:
+#  port: 8081
+  
+#logging.level.com.netflix=TRACE
+#logging.level.org.springframework.cloud=TRACE
+#logging.level.io.pivotal=DEBUG
+#logging.level.feign.io.pivotal=DEBUG
+#logging.level.feign=DEBUG
+
+security:
+  basic:
+    enabled: false  

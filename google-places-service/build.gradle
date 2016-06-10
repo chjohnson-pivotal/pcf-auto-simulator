@@ -1,0 +1,58 @@
+buildscript {
+    ext {
+        springBootVersion = '1.2.6.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+		maven { url 'http://repo.spring.io/milestone' }
+		maven { url 'http://repo.spring.io/snapshot' }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.6.RELEASE")
+        classpath("io.spring.gradle:dependency-management-plugin:0.5.3.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'spring-boot' 
+apply plugin: 'io.spring.dependency-management' 
+
+jar {
+    baseName = 'RepairService'
+    version = '0.0.1-SNAPSHOT'
+}
+
+repositories {
+    mavenCentral()
+	maven { url 'http://repo.spring.io/milestone' }
+	maven { url 'http://repo.spring.io/snapshot' }
+	maven { url "https://repo.spring.io/libs-snapshot" }
+}
+
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+	compile("org.springframework.boot:spring-boot-starter-actuator")
+	compile("io.pivotal.spring.cloud:spring-cloud-services-starter-config-client")
+	compile("io.pivotal.spring.cloud:spring-cloud-services-starter-service-registry")
+	compile("org.springframework.cloud:spring-cloud-starter-feign")
+	compile("com.google.code.gson:gson:2.3.1")
+	testCompile("org.springframework.boot:spring-boot-starter-test")
+	
+}
+
+dependencyManagement {
+	imports {
+	  mavenBom "io.pivotal.spring.cloud:spring-cloud-services-starter-parent:1.0.2.RELEASE"
+	}
+}
+
+eclipse {
+    classpath {
+         containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
+         containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8'
+    }
+}
+

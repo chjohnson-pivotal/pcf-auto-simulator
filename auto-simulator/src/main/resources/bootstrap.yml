@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: simulator
+  cloud:
+    config:
+      uri: http://localhost:${config.port:8888}
+#      uri: http://cqQkTeH5wEER:O5zMVy3tGeJM@config-71d5bdea-64b0-4f7f-b16a-b55e586cd0d6.west-1.fe.gopivotal.com 
+    
+     
+    

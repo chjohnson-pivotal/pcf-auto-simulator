@@ -1,0 +1,69 @@
+<!--  dealer popup  -->
+<div id="DealerModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalDealershipName">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        	<span aria-hidden="true">x</span>
+        </button>
+        <h4 class="modal-title" id="modalDealershipName">{{dealerName}}</h4>
+      </div>
+      <div class="modal-body">
+      	<p>
+      		{{ dealerAddress.street }}<br/> {{ dealerAddress.city }}, {{ dealerAddress.stateCode }}  {{ dealerAddress.zipcode }}
+		</p>
+      	<table id="dealerSchedule" class="table table-striped">
+      		<thead>
+      			<tr>
+      				<td class="text-center"><strong>Date</strong></td>
+      				<td class="text-center"><strong>Time</strong></td>
+      				<td class="text-center"><strong>Duration</strong></td>
+      				<td>&nbsp;</td>
+      			</tr>
+      		</thead>
+      		<tbody>
+				<tr>
+					<td class="text-center">{{openings[0].date}}</td>
+					<td class="text-center">{{openings[0].startTime}}</td>
+					<td class="text-center">{{openings[0].duration}}</td>
+					<td><button type="button" class="btn btn-primary">Book it!</button></td>
+				</tr>	      			
+				<tr>
+					<td class="text-center">{{openings[1].date}}</td>
+					<td class="text-center">{{openings[1].startTime}}</td>
+					<td class="text-center">{{openings[1].duration}}</td>
+					<td><button type="button" class="btn btn-primary">Book it!</button></td>
+				</tr>	      			
+				<tr>
+					<td class="text-center">{{openings[2].date}}</td>
+					<td class="text-center">{{openings[2].startTime}}</td>
+					<td class="text-center">{{openings[2].duration}}</td>
+					<td><button type="button" class="btn btn-primary">Book it!</button></td>
+				</tr>	      			
+				<tr>
+					<td class="text-center">{{openings[3].date}}</td>
+					<td class="text-center">{{openings[3].startTime}}</td>
+					<td class="text-center">{{openings[3].duration}}</td>
+					<td><button type="button" class="btn btn-primary">Book it!</button></td>
+				</tr>	      			
+				<tr>
+					<td class="text-center">{{openings[4].date}}</td>
+					<td class="text-center">{{openings[4].startTime}}</td>
+					<td class="text-center">{{openings[4].duration}}</td>
+					<td><button type="button" class="btn btn-primary">Book it!</button></td>
+				</tr>	      			
+				<tr>
+					<td class="text-center">{{openings[5].date}}</td>
+					<td class="text-center">{{openings[5].startTime}}</td>
+					<td class="text-center">{{openings[5].duration}}</td>
+					<td><button type="button" class="btn btn-primary">Book it!</button></td>
+				</tr>	      			
+      		</tbody>
+      	</table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

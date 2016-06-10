@@ -1,0 +1,20 @@
+radius: 100
+make: Ford
+state: new
+pageNum: 1
+pageSize: 10
+sortby: distance
+view:  basic
+
+dealer:
+  service:
+    apiKey: wyanxf4hcvq7reh379nb5z67  
+
+---
+spring:
+  profiles: development
+  
+server:
+   port: 8081
+   
+   

@@ -1,0 +1,163 @@
+<!doctype html>
+<html>
+	<head>
+	    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	    <title>Vehicle Simulator</title>	
+		<!-- Latest Bootstrap compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="main.css">
+	</head>
+
+	<body data-ng-app="vehicleSimulator" data-ng-controller="VehicleSimulatorController" ng-init="getRabbitMqStatus();">
+  	<div class="container logo">
+		<label>Navigator</label>
+	</div>
+	<nav class="navbar navbar-default">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="navbar-collapse collapse">
+				<div class="row">
+					<div class="col-xs-3">
+						<div class="input-group buttons">
+							<span class="input-group-addon" id="lblFuel">Fuel</span>
+							<input class="form-control" id="fuelThreshold" name="fuelThreshold" type="number" value="20" aria-describedby="lblFuel">
+							<span class="input-group-addon">%</span>
+						</div>
+					</div>
+					<div class="col-xs-4 alerts">
+						<div id="currentFuelCondition" class="alert {{conditionFuelClass}}" role="alert"><strong>{{conditionFuelStrongText}}</strong> - {{conditionFuelText}}</div>
+					</div>
+					<div class="col-xs-1 buttons" ng-show="haveRabbitConnection">
+						<button id="btnStart" type="button" class="btn btn-success" data-ng-click="startTimer()">Start</button>
+					</div>
+					<div class="col-xs-1 buttons" ng-show="haveRabbitConnection">
+						<button id="btnStop" type="button" class="btn btn-danger" data-ng-click="stopTimer();">Stop</button>
+				  	</div>
+			  		<div class="col-xs-3 text-right buttons">
+			  			<button id="btnKillApp" type="button" class="btn btn-danger" title="Kill the Application" data-ng-click="killApp();">Kill The App</button>
+			  		</div>
+				  	
+				</div>
+				<div class="row">
+					<div class="col-xs-3">
+						<div class="input-group buttons">
+							<span class="input-group-addon" id="lblSvcFrequency">Service Every</span>
+							<input class="form-control" id="serviceFrequency" name="serviceFrequency" type="number" value="5000" aria-describedby="lblSvcFrequency">
+							<span class="input-group-addon">Miles</span>							
+						</div>
+					</div>
+					<div class="col-xs-4 alerts">
+						<div id="currentRepairCondition" class="alert {{conditionRepairClass}}" role="alert"><strong>{{conditionRepairStrongText}}</strong> - {{conditionRepairText}}</div>
+					</div>
+					<div class="col-xs-1 buttons">
+						<button id="btnResetService" type="button" class="btn btn-primary" title="Mark the vehicle as serviced" data-ng-click="serviceVehicle();">Service Vehicle</button>
+					</div>
+			  		<div class="col-xs-offset-1 col-xs-3 text-right" ng-init="ipAddress();">
+			  			IP Address: {{serverIpAddress}}
+				  		<div id="rabbitStatus" role="alert">
+				  			Bound to Rabbit MQ?: {{ boundToRabbitMQ }}
+						</div>			  			  		
+			  		</div>	
+				</div>
+				
+			</div><!--/.nav-collapse -->
+		</div>
+	</nav>  	
+  	<div class="container" >
+		<div class="row main-content-row">
+			<div class="col-xs-6 vehicle-info-container">
+			    <div class="map-container">
+				    <div id="map-canvas">
+				    </div>
+				</div>
+			    <div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">Vehicle Stats</h3>
+					</div>
+					<div class="panel-body">
+						<ul class="list-group">
+							<li class="list-group-item">
+								<label>Odometer:</label> <span id="tcOdometer">{{odometer}} miles</span>
+							</li>
+							<li class="list-group-item">
+								<label>Fuel Level:</label> 
+								<div class="progress">
+									<div id="fuelLevel" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{fuelLevel}}" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width: 2%;">{{fuelLevel}}%</div>
+								</div>
+							</li>
+							<li class="list-group-item">
+								<label>Location (lat,lng):</label> <span id="tcLatLng">{{latlng}}</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-6">		
+
+				<ul class="nav nav-pills">
+				  <li id="gasStationsPill" role="presentation" class="active" onclick="activeTab('dealerships', 'gasStations');"><a href="#">Gas Stations</a></li>
+				  <li id="dealershipsPill" role="presentation" onclick="activeTab('gasStations', 'dealerships');"><a href="#">Dealers</a></li>
+				</ul>
+
+				<div id="data-tables">
+				    <div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">Nearby Locations</h3>
+						</div>
+						<div class="panel-body">
+					    	<table id="gasStations" class="table table-striped">
+								<thead>
+									<tr ng-show="stations.length > 0">
+										<td>&nbsp;</td>
+										<td style="text-align: center;"><strong>Regular</strong></td>
+										<td style="text-align: center;"><strong>Mid Grade</strong></td>
+										<td style="text-align: center;"><strong>Premium</strong></td>
+									</tr>
+								</thead>					    	
+								<tbody>
+									<tr data-ng-repeat="station in stations">
+										<td><strong>{{ station.station }}</strong><br/>{{ station.address }}<br/>{{ station.distance }}</td>
+										<td style="vertical-align:middle; text-align: center;" data-ng-init="price = (station.reg_price == 'N/A' ? '' : '$') + station.reg_price">{{ price }}</td>
+										<td style="vertical-align:middle; text-align: center;" data-ng-init="price = (station.mid_price == 'N/A' ? '' : '$') + station.mid_price">{{ price }}</td>
+										<td style="vertical-align:middle; text-align: center;" data-ng-init="price = (station.pre_price == 'N/A' ? '' : '$') + station.pre_price">{{ price }}</td>
+									</tr>
+								</tbody>
+					    	</table>
+					    	<table id="dealerships" class="table table-striped" style="display:none;">
+					    		<tbody>
+									<tr data-ng-repeat="dealer in dealers">
+										<td><strong><a href="" data-ng-click="showDealer(dealer.dealerId, dealer.name, dealer.address)">{{ dealer.name }}</a></strong></td>
+										<td>
+											{{ dealer.address.street }}, {{ dealer.address.city }}, {{ dealer.address.stateCode }}  {{ dealer.address.zipcode }}<br/>
+										    Distance: {{ dealer.distance }} miles
+										</td>
+									</tr>
+					    		</tbody>
+					    	</table>					    	
+				    	</div>
+				    </div>
+			    </div>
+		    </div>
+	  	</div>
+	</div>    
+
+	<div data-ng-include="'dealerModal.html'">
+	</div>
+	
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>    
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBywCGRuSOk1a0hJed2vOn3lZH6OIZbQ0E" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+    <script src="simulator.js"></script>
+    <script src="map.js"></script>
+	
+  </body>
+</html>
