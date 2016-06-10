@@ -1,0 +1,8 @@
+---
+spring:
+  profiles: development
+  
+server:
+   port: 8084
+   
+   
