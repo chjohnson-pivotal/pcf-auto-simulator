@@ -1,0 +1,12 @@
+---
+applications:
+- name: dealer-service
+  memory: 768MB 
+  instances: 1
+  host: dealer-service
+  path: ./build/libs/dealer-service-0.0.1-SNAPSHOT.jar
+  timeout: 180
+services:
+  - service-registry
+  - config-server
+

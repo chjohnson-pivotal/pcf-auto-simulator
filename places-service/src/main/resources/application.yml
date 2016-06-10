@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: ${vcap.application.name:places-service}
+
+security:
+  basic:
+    enabled: false
+    
+logging:
+  level:
+    io.pivotal.places.GooglePlacesClient: DEBUG
