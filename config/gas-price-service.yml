@@ -2,6 +2,10 @@ gas:
   service:
     apiKey: u3t7n5vzxl  
 
+---
+spring:
+  profiles: development
+
 server:
    port: 8082
    

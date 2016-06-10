@@ -1,0 +1,32 @@
+---
+applications:
+- name: dealer-service
+  memory: 768MB 
+  instances: 1
+  host: dealer-service-${random-word}
+  path: ./dealer-service/build/libs/dealer-service-0.0.1-SNAPSHOT.jar
+  timeout: 180
+  services:
+  - service-registry
+  - config-server
+
+- name: gas-price-service
+  memory: 768MB 
+  instances: 1
+  host: gas-price-service-${random-word}
+  path: ./gas-price-service/build/libs/gas-price-service-0.0.1-SNAPSHOT.jar
+  timeout: 180
+  services:
+  - service-registry
+  - config-server
+
+- name: places-service
+  memory: 768MB 
+  instances: 1
+  host: places-service-${random-word}
+  path: ./places-service/build/libs/places-service-0.0.1-SNAPSHOT.jar
+  timeout: 180
+  services:
+  - service-registry
+  - config-server
+

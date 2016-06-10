@@ -20,7 +20,7 @@ apply plugin: 'spring-boot'
 apply plugin: 'io.spring.dependency-management' 
 
 jar {
-    baseName = 'RepairService'
+    baseName = 'gas-price-service'
     version = '0.0.1-SNAPSHOT'
 }
 

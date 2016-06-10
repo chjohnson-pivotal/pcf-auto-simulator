@@ -2,6 +2,10 @@ google:
   service:
     apiKey: AIzaSyCJNAAvyohMMJ8lWDFnQxKtumpJB-7idvE  
 
+---
+spring:
+  profiles: development
+
 server:
    port: 8083
    

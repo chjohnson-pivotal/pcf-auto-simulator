@@ -1,6 +1,6 @@
 spring:
   application:
-    name: ${vcap.application.name:PlacesService}
+    name: ${vcap.application.name:places-service}
 
 security:
   basic:

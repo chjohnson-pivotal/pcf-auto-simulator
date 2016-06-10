@@ -53,7 +53,6 @@ public class DealerController {
 	@ResponseBody
 	public Dealers dealers(@RequestParam("brand") String brand, @RequestParam("zipcode") String zipcode)
 	{
-		System.out.println("RADIUS: " + radius);
 		Dealers dealers = dealerClient.nearestDealerships(zipcode, radius, brand, state, pageNum, pageSize, sortby, view, key);
 		return dealers;
 	}
