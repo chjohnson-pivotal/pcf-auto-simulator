@@ -1,17 +1,8 @@
-#eureka:
-#  client:
-#    serviceUrl:
-#      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://127.0.0.1:8761}/eureka/
-
 spring:
   application:
-    name: ${vcap.application.name:RepairService}
+    name: ${vcap.application.name:repair-service}
 
 security:
   basic:
     enabled: false
     
-#eureka:
-#  instance:
-#    hostname: ${vcap.application.uris[0]}
-#    nonSecurePort: 80

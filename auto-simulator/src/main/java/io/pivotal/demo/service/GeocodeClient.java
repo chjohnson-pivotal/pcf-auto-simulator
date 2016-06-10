@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import io.pivotal.demo.Geo;
 
-@FeignClient("PlacesService")
+@FeignClient("places-service")
 public interface GeocodeClient {
 
     @RequestMapping(method = RequestMethod.GET, value = "/reverseGeocode", params = {"lat", "lng"}, consumes = "application/json")

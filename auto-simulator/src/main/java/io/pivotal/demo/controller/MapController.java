@@ -78,17 +78,8 @@ public class MapController {
 	public @ResponseBody Dealerships nearestDealerships(@RequestParam(required=true) String lat, 
 															 @RequestParam(required=true) String lng,
 															 @RequestParam(required=true) String brand) {
-try {
-	System.out.println("IN NEAREST DEALER");
 		Geo geo = geocodeClient.geocode(lat, lng);
-		
-		System.out.println("geo: " + geo.getPostalCode());
 		return dealershipsClient.nearestDealerships(brand, geo.getPostalCode());
-}
-catch (Exception e) {
-	e.printStackTrace();
-}
-return null;
 	}    
     
     @RequestMapping("/vehicleInfo")

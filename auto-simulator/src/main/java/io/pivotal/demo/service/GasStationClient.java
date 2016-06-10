@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import io.pivotal.demo.GasStations;
 
-@FeignClient("GasPriceService")
+@FeignClient("gas-price-service")
 public interface GasStationClient {
 	
     @RequestMapping(method = RequestMethod.GET, value = "/gasPrices", params = {"lat", "lng", "distance"}, consumes = "application/json")
