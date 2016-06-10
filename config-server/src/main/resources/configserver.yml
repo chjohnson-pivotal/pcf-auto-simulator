@@ -1,13 +1,12 @@
 spring:
   application:
-     name: simulatorConfigServer
+     name: config-server
   cloud:
     config:
       server: 
         git:
-          uri:  https://github.com/Pivotal-Field-Engineering/pcf-vehicle-simulator-microservices
-          searchPaths: apps/VehicleSimulator/config/src/main/resources
-#  profiles:
-#     active: native
+          uri:  https://github.com/chjohnson-pivotal/pcf-auto-simulator
+          searchPaths: config
  
-        
+server:
+  port: 8888
