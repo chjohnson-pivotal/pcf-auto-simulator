@@ -20,6 +20,16 @@ applications:
   - service-registry
   - config-server
 
+- name: auto-simulator-2
+  memory: 512MB
+  instances: 1
+  host: auto-simulator-${random-word}
+  path: /Users/cjohnson/Documents/demo-workspace/auto-simulator-2/build/libs/auto-simulator-0.0.1-SNAPSHOT.jar
+  timeout: 180
+  services:
+  - service-registry
+  - config-server
+
 - name: places-service
   memory: 512MB 
   instances: 1
@@ -40,16 +50,13 @@ applications:
   - service-registry
   - config-server
 
-- name: auto-simulator 
+- name: auto-simulator
   memory: 512MB 
   instances: 1
   host: auto-simulator-${random-word}
   path: ./auto-simulator/build/libs/auto-simulator-0.0.1-SNAPSHOT.jar
   timeout: 180
   services:
-#  - vehicle-data-queue
   - service-registry
   - config-server
-  env:
-    SPRING_PROFILES_ACTIVE: configServer
-
+  - rabbitmq-service

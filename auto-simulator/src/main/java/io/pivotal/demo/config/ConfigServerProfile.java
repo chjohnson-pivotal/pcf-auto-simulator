@@ -8,10 +8,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 
 @Configuration
-@Profile("configServer")
+@Profile("development")
 @RefreshScope
 public class ConfigServerProfile 
 {
@@ -30,6 +31,7 @@ public class ConfigServerProfile
     String rabbitPassword;
 	
 	@Bean
+	@Primary //Forcing this connection factory to get picked over the default when in dev mode
 	public ConnectionFactory connectionFactory()
 	{
 		log.info("Using config server profile");

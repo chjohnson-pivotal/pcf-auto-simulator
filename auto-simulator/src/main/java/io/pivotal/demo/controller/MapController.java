@@ -19,6 +19,7 @@ import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -112,6 +113,18 @@ public class MapController {
 		}
     }
     
+	@Value("${rabbitmq.uri}")
+    String rabbitUri;
+	
+	@Value("${rabbitmq.vhost}")
+    String rabbitVhost;	
+
+	@Value("${rabbitmq.username}")
+    String rabbitUsername;
+	
+	@Value("${rabbitmq.password}")
+    String rabbitPassword;
+	
     @RequestMapping("/haveRabbitConnection")
     public @ResponseBody String haveRabbitMqConnection()
     {
@@ -122,11 +135,11 @@ public class MapController {
     		try
     		{
     			ConnectionFactory connectionFactory = rabbitTemplate.getConnectionFactory();
-    			connectionFactory.createConnection();
     			haveRabbit = true;
     		}
     		catch(AmqpException ae)
     		{
+    			ae.printStackTrace();
     			haveRabbit = false;
     		}
     	}
