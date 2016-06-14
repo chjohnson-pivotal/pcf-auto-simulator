@@ -10,6 +10,11 @@ dealer:
   service:
     apiKey: wyanxf4hcvq7reh379nb5z67  
 
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${vcap.services.service-registry.credentials.uri:http://127.0.0.1:8761}/eureka/
+
 ---
 spring:
   profiles: development
