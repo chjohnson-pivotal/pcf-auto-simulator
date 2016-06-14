@@ -2,8 +2,13 @@ server:
   port: ${PORT:8761}
 
 eureka:
+  instance:
+    hostname: ${vcap.application.uris[0]:localhost}
+    metadata-map:
+      instanceId: ${spring.application.name}:${vcap.application.instance_index:${server.port}}
+      
   client:
-    registerWithEureka: false
-    fetchRegistry: false
-    server:
-      waitTimeInMsWhenSyncEmpty: 0
+    register-with-eureka: false
+    fetch-registry: false
+    healthcheck:
+      enabled: false;        
