@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: ${vcap.application.name:zipkin-server}
+
+---
+spring:
+  profiles: cloud
+
+  rabbitmq:
+    host: ${RABBIT_HOST:localhost:5672}
+    username: ${RABBIT_USER:guest}
+    password: ${RABBIT_PASSWORD:guest}
+    virtual-host: ${RABBIT_VHOST:"/"}
+  datasource:
+    initialize: false
+
+---    
+spring:
+  profiles: development
+  
+server:
+  port: 9411
+      
