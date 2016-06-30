@@ -22,41 +22,11 @@
       			</tr>
       		</thead>
       		<tbody>
-				<tr>
-					<td class="text-center">{{openings[0].date}}</td>
-					<td class="text-center">{{openings[0].startTime}}</td>
-					<td class="text-center">{{openings[0].duration}}</td>
-					<td><button type="button" class="btn btn-primary">Book it!</button></td>
-				</tr>	      			
-				<tr>
-					<td class="text-center">{{openings[1].date}}</td>
-					<td class="text-center">{{openings[1].startTime}}</td>
-					<td class="text-center">{{openings[1].duration}}</td>
-					<td><button type="button" class="btn btn-primary">Book it!</button></td>
-				</tr>	      			
-				<tr>
-					<td class="text-center">{{openings[2].date}}</td>
-					<td class="text-center">{{openings[2].startTime}}</td>
-					<td class="text-center">{{openings[2].duration}}</td>
-					<td><button type="button" class="btn btn-primary">Book it!</button></td>
-				</tr>	      			
-				<tr>
-					<td class="text-center">{{openings[3].date}}</td>
-					<td class="text-center">{{openings[3].startTime}}</td>
-					<td class="text-center">{{openings[3].duration}}</td>
-					<td><button type="button" class="btn btn-primary">Book it!</button></td>
-				</tr>	      			
-				<tr>
-					<td class="text-center">{{openings[4].date}}</td>
-					<td class="text-center">{{openings[4].startTime}}</td>
-					<td class="text-center">{{openings[4].duration}}</td>
-					<td><button type="button" class="btn btn-primary">Book it!</button></td>
-				</tr>	      			
-				<tr>
-					<td class="text-center">{{openings[5].date}}</td>
-					<td class="text-center">{{openings[5].startTime}}</td>
-					<td class="text-center">{{openings[5].duration}}</td>
-					<td><button type="button" class="btn btn-primary">Book it!</button></td>
+				<tr data-ng-repeat="opening in openings">
+					<td class="text-center">{{opening.date}}</td>
+					<td class="text-center">{{opening.startTime}}</td>
+					<td class="text-center">{{opening.duration}}</td>
+					<td><button data-ng-if="opening.startTime != null" type="button" class="btn btn-primary">Book it!</button></td>
 				</tr>	      			
       		</tbody>
       	</table>

@@ -1,16 +1,17 @@
 spring:
   application:
     name: ${vcap.application.name:zipkin-server}
-
+    
 ---
 spring:
   profiles: cloud
 
   rabbitmq:
-    host: ${RABBIT_HOST:localhost:5672}
+    host: ${RABBIT_HOST:localhost}
     username: ${RABBIT_USER:guest}
     password: ${RABBIT_PASSWORD:guest}
     virtual-host: ${RABBIT_VHOST:"/"}
+    port: ${RABBIT_PORT:5672}
   datasource:
     initialize: false
 

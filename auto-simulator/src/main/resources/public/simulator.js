@@ -2,7 +2,6 @@ angular.module('vehicleSimulator', [])
 	.controller('VehicleSimulatorController', ['$scope', '$interval', '$http',
    function($scope, $interval, $http) {
 
-		var BRAND = "ford";
 		var stop;
 		var lastServicedAt = 0;
 		var fuelOk;
@@ -157,13 +156,14 @@ angular.module('vehicleSimulator', [])
 	            $scope.conditionRepairStrongText = "Yellow Condition";
 	            $scope.conditionRepairText = "Time for an oil change.";
 	            
+	    		var BRAND = $("#placesString").val();
+	    		console.log("brand: " + BRAND);
+				clearDealershipMarkers();	            
 				callNearestDealerships( map, BRAND, $scope.latitude, $scope.longitude);
 			}
 			else {
 				// clear the dealerships
 				$( "#dealerships tbody").empty();
-				
-				clearDealershipMarkers();
 				
 				resetServiceCondition();
 			}
@@ -181,6 +181,9 @@ angular.module('vehicleSimulator', [])
 		            var iconUrl = 'dealershipicon.png';
 	
 	                $scope.dealers = data.dealers;
+
+	                clearDealershipMarkers();
+					
 		            
 		            for(var i=0; i< data.dealers.length; i++) {
 		                var dealership = data.dealers[i];

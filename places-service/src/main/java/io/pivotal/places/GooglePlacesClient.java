@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import io.pivotal.places.PlacesResponse;
 
-@FeignClient(url="https://maps.googleapis.com")
+@FeignClient(name="places-service", url="https://maps.googleapis.com")
 public interface GooglePlacesClient {
 
 	// Example:  https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=40.1578400,-83.0751870&rankby=distance&types=gas_station&key=AIzaSyCJNAAvyohMMJ8lWDFnQxKtumpJB-7idvE
@@ -17,7 +17,7 @@ public interface GooglePlacesClient {
     						   		 @RequestParam("type") String type,
     						   		 @RequestParam("key") String apiKey);
 
-	// Example:  https://maps.googleapis.com/maps/api/place/nearbysearch/json?latlng=40.1578400,-83.0751870&key=AIzaSyCJNAAvyohMMJ8lWDFnQxKtumpJB-7idvE
+	// Example:  https://maps.googleapis.com/maps/api/geocode/json?latlng=40.1578400,-83.0751870&key=AIzaSyCJNAAvyohMMJ8lWDFnQxKtumpJB-7idvE
     @RequestMapping(value = "/maps/api/geocode/json", params = {"latlng", "key"}, method = RequestMethod.GET , consumes = "application/json")
     public ReverseGeocodeResponse reverseGeocode(@RequestParam("latlng") String location,
     								@RequestParam("key") String apiKey);

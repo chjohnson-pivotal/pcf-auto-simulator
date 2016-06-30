@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import io.pivotal.dealer.Dealers;
 
-@FeignClient(url="http://api.edmunds.com")
+@FeignClient(name="dealer-client", url="http://api.edmunds.com")
 public interface DealerClient {
 
 	// Example:  http://api.edmunds.com/api/dealer/v2/dealers?zipcode=43065&radius=100&make=Ford&state=new&pageNum=1&pageSize=10&sortby=distance&view=basic&api_key=wyanxf4hcvq7reh379nb5z67

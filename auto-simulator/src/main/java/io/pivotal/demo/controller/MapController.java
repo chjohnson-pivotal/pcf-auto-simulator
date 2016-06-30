@@ -19,7 +19,6 @@ import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +26,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.launchdarkly.client.LDClient;
+import com.launchdarkly.client.LDUser;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 @Controller
@@ -50,18 +51,21 @@ public class MapController {
     @Autowired 
     private RabbitTemplate rabbitTemplate;
     
+    @Autowired
+    private LDClient ldClient;
+    
     @RequestMapping("/dealershipOpenings")
     @HystrixCommand(fallbackMethod = "defaultSchedule")
 	public @ResponseBody List<Schedule> dealershipOpenings(@RequestParam(required=true) Long dealerId) {
+
 		return repairClient.openings(dealerId);
+	
 	} 
     
 	public @ResponseBody List<Schedule> defaultSchedule(@RequestParam(required=true) Long dealerId) {
 		List<Schedule> list = new ArrayList<Schedule>(1);
 		Schedule schedule = new Schedule();
-		schedule.setDuration("1 hour");
-		schedule.setStartTime("1 pm");
-		schedule.setDate("A week from next Monday");
+		schedule.setDate("No times available.  Please check back later.");
 		list.add(schedule);
 		return list;
 	} 
@@ -112,19 +116,7 @@ public class MapController {
     		return "{ \"ipAddress\" : \"" + "Unknown/Error" + "\"}";
 		}
     }
-    
-	@Value("${rabbitmq.uri}")
-    String rabbitUri;
-	
-	@Value("${rabbitmq.vhost}")
-    String rabbitVhost;	
-
-	@Value("${rabbitmq.username}")
-    String rabbitUsername;
-	
-	@Value("${rabbitmq.password}")
-    String rabbitPassword;
-	
+    	
     @RequestMapping("/haveRabbitConnection")
     public @ResponseBody String haveRabbitMqConnection()
     {

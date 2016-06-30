@@ -1,11 +1,19 @@
 spring:
   application:
     name: ${vcap.application.name:places-service}
+  sleuth:
+    hystrix:
+      strategy.enabled: false    
 
 security:
   basic:
     enabled: false
     
-logging:
-  level:
-    io.pivotal.places.GooglePlacesClient: DEBUG
+hystrix:
+  command:
+    default:    
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000
+            

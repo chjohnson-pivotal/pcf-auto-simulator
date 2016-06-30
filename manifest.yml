@@ -1,62 +1,81 @@
 ---
 applications:
-- name: dealer-service
-  memory: 512MB 
+- name: simulator-zipkin
+  memory: 512MB
   instances: 1
-  host: dealer-service-${random-word}
+  host: simulator-zipkin
+  path: ./zipkin-server/build/libs/zipkin-server-0.0.1-SNAPSHOT.jar
+  timeout: 180
+  services:
+  - rabbitmq-service
+  - mysql-service
+
+- name: simulator-registry
+  memory: 512MB
+  instances: 1
+  host: simulator-registry
+  path: ./registry-server/build/libs/registry-server-0.0.1-SNAPSHOT.jar
+  timeout: 180
+
+- name: simulator-config
+  memory: 512MB
+  instances: 1
+  host: simulator-config
+  path: ./config-server/build/libs/config-server-0.0.1-SNAPSHOT.jar
+  timeout: 180
+
+- name: dealer-service
+  memory: 768MB 
+  instances: 1
+  host: dealer-service-sim
   path: ./dealer-service/build/libs/dealer-service-0.0.1-SNAPSHOT.jar
   timeout: 180
   services:
   - service-registry
   - config-server
+  - rabbitmq-service
 
 - name: gas-price-service
-  memory: 512MB 
+  memory: 768MB 
   instances: 1
-  host: gas-price-service-${random-word}
+  host: gas-price-service-sim
   path: ./gas-price-service/build/libs/gas-price-service-0.0.1-SNAPSHOT.jar
   timeout: 180
   services:
   - service-registry
   - config-server
-
-- name: auto-simulator-2
-  memory: 512MB
-  instances: 1
-  host: auto-simulator-${random-word}
-  path: /Users/cjohnson/Documents/demo-workspace/auto-simulator-2/build/libs/auto-simulator-0.0.1-SNAPSHOT.jar
-  timeout: 180
-  services:
-  - service-registry
-  - config-server
+  - rabbitmq-service
 
 - name: places-service
-  memory: 512MB 
+  memory: 768MB 
   instances: 1
-  host: places-service-${random-word}
+  host: places-service-sim
   path: ./places-service/build/libs/places-service-0.0.1-SNAPSHOT.jar
   timeout: 180
   services:
   - service-registry
   - config-server
+  - rabbitmq-service
 
 - name: repair-service
   memory: 768MB
   instances: 1
-  host: repair-service-${random-word}
+  host: repair-service-sim
   path: ./repair-service/build/libs/repair-service-0.0.1-SNAPSHOT.jar
   timeout: 180
   services:
   - service-registry
   - config-server
+  - rabbitmq-service
 
 - name: auto-simulator
-  memory: 512MB 
+  memory: 1024MB 
   instances: 1
-  host: auto-simulator-${random-word}
+  host: auto-simulator
   path: ./auto-simulator/build/libs/auto-simulator-0.0.1-SNAPSHOT.jar
   timeout: 180
   services:
   - service-registry
   - config-server
   - rabbitmq-service
+  - circuit-breaker-dashboard-service

@@ -1,7 +1,22 @@
 spring:
   application:
     name: ${vcap.application.name:auto-simulator}
+  sleuth:
+    hystrix:
+      strategy.enabled: false    
         
 security:
   basic:
     enabled: false  
+    
+hystrix:
+  command:
+    default:    
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000
+
+logging:
+  level:
+    com.launchdarkly: TRACE            

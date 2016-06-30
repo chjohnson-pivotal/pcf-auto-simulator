@@ -1,9 +1,0 @@
-spring:
-  application:
-    name: DealerService 
-    
-security:
-  basic:
-    enabled: false    
-    
-logging.level.io.pivotal.dealer.DealerClient: DEBUG    

@@ -1,7 +1,20 @@
 spring:
   application:
     name: ${vcap.application.name:gas-price-service}
+  sleuth:
+    hystrix:
+      strategy.enabled: false
+
+hystrix:
+  command:
+    default:    
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 30000
 
 security:
   basic:
     enabled: false
+
+  

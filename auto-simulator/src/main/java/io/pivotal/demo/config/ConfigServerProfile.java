@@ -34,7 +34,6 @@ public class ConfigServerProfile
 	@Primary //Forcing this connection factory to get picked over the default when in dev mode
 	public ConnectionFactory connectionFactory()
 	{
-		log.info("Using config server profile");
         CachingConnectionFactory connectionFactory = new CachingConnectionFactory(rabbitUri);
         connectionFactory.setVirtualHost(rabbitVhost);
         connectionFactory.setUsername(rabbitUsername);

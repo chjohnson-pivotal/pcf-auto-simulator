@@ -10,8 +10,8 @@
 	</head>
 
 	<body data-ng-app="vehicleSimulator" data-ng-controller="VehicleSimulatorController" ng-init="getRabbitMqStatus();">
-  	<div class="container logo">
-		<label>Navigator</label>
+	<div class="header">
+		<img width="50" src="pivotal_logo_icon.png"><label>Dashboard Simulator</label>
 	</div>
 	<nav class="navbar navbar-default">
 		<div class="container">
@@ -101,12 +101,19 @@
 				</div>
 			</div>
 			<div class="col-xs-6">		
-
-				<ul class="nav nav-pills">
-				  <li id="gasStationsPill" role="presentation" class="active" onclick="activeTab('dealerships', 'gasStations');"><a href="#">Gas Stations</a></li>
-				  <li id="dealershipsPill" role="presentation" onclick="activeTab('gasStations', 'dealerships');"><a href="#">Dealers</a></li>
-				</ul>
-
+				<div class="col-xs-6">
+					<ul class="nav nav-pills">
+					  <li id="gasStationsPill" role="presentation" class="active" onclick="activeTab('dealerships', 'gasStations');"><a href="#">Gas Stations</a></li>
+					  <li id="dealershipsPill" role="presentation" onclick="activeTab('gasStations', 'dealerships');"><a href="#">Dealers</a></li>
+					</ul>
+				</div>
+				<div class="col-xs-6">
+					<div class="input-group">
+					  <span class="input-group-addon" id="basic-addon1">Places</span>
+					  <input id="placesString" type="text" class="form-control" style="max-width:200px;" placeholder="Search for..." aria-describedby="basic-addon1">
+					</div>				
+				</div>
+				<div class="col-xs-12">
 				<div id="data-tables">
 				    <div class="panel panel-primary">
 						<div class="panel-heading">
@@ -116,10 +123,10 @@
 					    	<table id="gasStations" class="table table-striped">
 								<thead>
 									<tr ng-show="stations.length > 0">
-										<td>&nbsp;</td>
-										<td style="text-align: center;"><strong>Regular</strong></td>
-										<td style="text-align: center;"><strong>Mid Grade</strong></td>
-										<td style="text-align: center;"><strong>Premium</strong></td>
+										<td class="text-left"><strong>Location</strong></td>
+										<td class="text-center"><strong>Regular</strong></td>
+										<td class="text-center"><strong>Mid Grade</strong></td>
+										<td class="text-center"><strong>Premium</strong></td>
 									</tr>
 								</thead>					    	
 								<tbody>
@@ -143,6 +150,7 @@
 					    		</tbody>
 					    	</table>					    	
 				    	</div>
+				    </div>
 				    </div>
 			    </div>
 		    </div>

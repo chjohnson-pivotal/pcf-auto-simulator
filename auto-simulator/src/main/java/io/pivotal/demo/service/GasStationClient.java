@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import io.pivotal.demo.GasStations;
 
-@FeignClient("https://gas-price-service")
+@FeignClient("http://gas-price-service")
 public interface GasStationClient {
 	
     @RequestMapping(method = RequestMethod.GET, value = "/gasPrices", params = {"lat", "lng", "distance"}, consumes = "application/json")
     public GasStations nearestGasStationsWithPrices(@RequestParam("lat") String lat, 
-    												   @RequestParam("lng") String lng,
-    												   @RequestParam("distance") Integer distance);
+    												@RequestParam("lng") String lng,
+    												@RequestParam("distance") Integer distance);
 
 }
