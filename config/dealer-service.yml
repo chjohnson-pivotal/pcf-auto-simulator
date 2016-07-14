@@ -10,22 +10,6 @@ dealer:
   service:
     apiKey: wyanxf4hcvq7reh379nb5z67  
 
-eureka:
-  client:
-    service-url:
-      defaultZone: ${vcap.services.service-registry.credentials.uri:http://localhost:8761}/eureka/
-
-# This cloud profile only needed until the eureka config above works or the registry server
-# is no longer needed
----
-spring:
-  profiles: cloud
-
-eureka:
-  client:
-    service-url:
-      defaultZone: http://simulator-registry.cfapps.io/eureka/
-
 ---
 spring:
   profiles: development
