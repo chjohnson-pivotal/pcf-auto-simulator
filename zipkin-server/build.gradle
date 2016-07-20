@@ -23,17 +23,19 @@ targetCompatibility = 1.8
 
 repositories {
 	mavenCentral()
+	maven { url 'https://repo.spring.io/libs-snapshot' }
 }
 
 
 dependencies {
-	compile("org.springframework.amqp:spring-rabbit:1.4.5.RELEASE")
-	compile('org.springframework.boot:spring-boot-starter')
-	compile('org.springframework.cloud:spring-cloud-sleuth-zipkin-stream')
-	compile('org.springframework.cloud:spring-cloud-sleuth-stream')
-	compile('org.springframework.cloud:spring-cloud-stream-binder-rabbit')
+	compile "org.springframework.cloud:spring-cloud-sleuth-zipkin-stream"
+	compile "org.springframework.cloud:spring-cloud-sleuth-zipkin"
+	compile "org.springframework.cloud:spring-cloud-stream-binder-rabbit" 
+	compile "org.springframework.boot:spring-boot-configuration-processor"
+	compile "io.zipkin.java:zipkin-autoconfigure-ui"
+	compile "io.zipkin.java:zipkin-ui"
+	compile 'org.jooq:jooq:3.8.4'
 	compile("org.springframework.boot:spring-boot-starter-jdbc")
-	compile('io.zipkin.java:zipkin-server')
 	compile('mysql:mysql-connector-java')
 	compile('com.h2database:h2')
 	testCompile('org.springframework.boot:spring-boot-starter-test') 
@@ -41,7 +43,7 @@ dependencies {
 
 dependencyManagement {
 	imports { 
-		mavenBom "org.springframework.cloud:spring-cloud-dependencies:Brixton.RELEASE" 
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:Brixton.SR1" 
 	}
 }
 

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import io.pivotal.gas.GasPriceClient;
 
 @RestController
-@RequestMapping("/")
 public class GasPriceController {
 	
 	@Autowired

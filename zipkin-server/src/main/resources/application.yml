@@ -1,24 +1,30 @@
+server:
+  port: 9411
+
 spring:
   application:
     name: ${vcap.application.name:zipkin-server}
-    
----
-spring:
-  profiles: cloud
-
   rabbitmq:
     host: ${RABBIT_HOST:localhost}
-    username: ${RABBIT_USER:guest}
-    password: ${RABBIT_PASSWORD:guest}
-    virtual-host: ${RABBIT_VHOST:"/"}
-    port: ${RABBIT_PORT:5672}
   datasource:
-    initialize: false
-
----    
+    initialize: true
+        
+---
 spring:
   profiles: development
-  
-server:
-  port: 9411
+  datasource:
+    schema: classpath:/mysql.sql
+    url: jdbc:mysql://localhost/zipkin
+    username: zipkin
+    password: passw0rd
+# Switch this on to create the schema on startup:
+    initialize: true
+    continueOnError: true
+  sleuth:
+    enabled: false
+zipkin:
+  storage:
+    type: mysql # default is mem (in-memory)
+    
+
       

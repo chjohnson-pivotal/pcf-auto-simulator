@@ -79,3 +79,13 @@ applications:
   - config-server
   - rabbitmq-service
   - circuit-breaker-dashboard-service
+
+- name: rabbit-test
+  memory: 512MB
+  instances: 1
+  host: rabbit-test-cj
+  path: ./demo/build/libs/demo-0.0.1-SNAPSHOT.jar
+  timeout: 180
+  services:
+  - rabbitmq-service
+  - circuit-breaker-dashboard-service

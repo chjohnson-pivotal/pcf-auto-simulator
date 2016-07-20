@@ -26,9 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.launchdarkly.client.LDClient;
-import com.launchdarkly.client.LDUser;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+//import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 @Controller
 @RequestMapping("/map")
@@ -51,11 +49,8 @@ public class MapController {
     @Autowired 
     private RabbitTemplate rabbitTemplate;
     
-    @Autowired
-    private LDClient ldClient;
-    
     @RequestMapping("/dealershipOpenings")
-    @HystrixCommand(fallbackMethod = "defaultSchedule")
+//    @HystrixCommand(fallbackMethod = "defaultSchedule")
 	public @ResponseBody List<Schedule> dealershipOpenings(@RequestParam(required=true) Long dealerId) {
 
 		return repairClient.openings(dealerId);
@@ -91,7 +86,7 @@ public class MapController {
     public @ResponseBody VehicleInfo vehicleInfo() throws Exception {
 
     	String json = new String((byte[])rabbitTemplate.receiveAndConvert(queueName));
-		
+		json = java.net.URLDecoder.decode(json, "UTF-8");
     	ObjectMapper mapper = new ObjectMapper();
 		mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 		
@@ -126,7 +121,7 @@ public class MapController {
     		
     		try
     		{
-    			ConnectionFactory connectionFactory = rabbitTemplate.getConnectionFactory();
+    			ConnectionFactory cn = rabbitTemplate.getConnectionFactory();
     			haveRabbit = true;
     		}
     		catch(AmqpException ae)

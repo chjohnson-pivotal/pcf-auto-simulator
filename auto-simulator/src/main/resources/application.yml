@@ -2,8 +2,11 @@ spring:
   application:
     name: ${vcap.application.name:auto-simulator}
   sleuth:
+    integration:
+      enabled: true
     hystrix:
-      strategy.enabled: false    
+      strategy:
+        enabled: false    
         
 security:
   basic:
