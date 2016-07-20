@@ -21,10 +21,16 @@ The following tools are needed to run this demo:
 ## Setup
 Data for this demonstration needs to be transformed from the OpenXC format and then loaded into RabbitMQ.  To do so, [download](https://cloud.spring.io/spring-cloud-dataflow/) the SCDF bits and follow the documentation to install a Spring Cloud Data Flow server for the target environment.
 
-Once the server is running create a stream that accepts data on an http port and feeds it to RabbitMQ.  Here is an example stream create script taken from a Spring Cloud Data Flow deployment on Pivotal Cloud Foundry:
+Once the server is running create a stream that accepts data on an http port and feeds it to RabbitMQ.  The stream needs to take this form:
 
 ```
-http --port=8080 | rabbit --exchange=vehicle-data --routing-key=all --password=3k6f6p8tpnilopfh3j9uugg0vd --host=10.68.151.58 --virtual-host=b25035a8-ab44-484c-8e73-7879aa1c0cfd --username=966d3d70-c9bf-4134-9524-c77448f476ff
+http --port=8080 | rabbit --exchange=vehicle-data --routing-key=all --username=<rabbit user> --password=<rabbit password> --host=<rabbit host> --virtual-host=<rabbit vhost>
+```
+
+Here is an example stream create script taken from a Spring Cloud Data Flow deployment on Pivotal Cloud Foundry:
+
+```
+http --port=8080 | rabbit --exchange=vehicle-data --routing-key=all --username=966d3d70-c9bf-4134-9524-c77448f476ff --password=3k6f6p8tpnilopfh3j9uugg0vd --host=10.68.151.58 --virtual-host=b25035a8-ab44-484c-8e73-7879aa1c0cfd 
 ```
 
 ## Ingesting Data
