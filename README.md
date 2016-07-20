@@ -28,7 +28,7 @@ http --port=8080 | rabbit --exchange=vehicle-data --routing-key=all --password=3
 ```
 
 ## Ingesting Data
-There are multiple two different types of data in the data folder of this repo.  For each type there are two versions:  a full file, and a smaller one consisting of a subset of data for testing.  This speeds up testing and can be used if using a hosted RabbitMQ instance with a free plan.  Within RabbitMQ, set up the following: 
+There are two different types of data in the data folder of this repo.  For each type there are two versions:  a full file, and a smaller one consisting of a subset of full data.  The small file can be used to speed up testing or if using a hosted RabbitMQ instance with a free plan.  Within RabbitMQ, set up the following: 
 
 * A queue named ```vehicle-data-queue```.
 * An exchange called ```vehicle-data``` bound to the above queue with a routing key of ```all```.
