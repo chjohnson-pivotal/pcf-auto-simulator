@@ -13,8 +13,10 @@ This project is intended to be run either locally on a laptop or deployed on a P
 
 ## Requirements
 The following tools are needed to run this demo:
-* [Spring Cloud Data Flow](http://cloud.spring.io/spring-cloud-dataflow/) server
+* [Spring Cloud Data Flow](http://cloud.spring.io/spring-cloud-dataflow/) server for ingesting data
 * RabbitMQ either installed locally running with the default configuration or as a service instance in PCF
+* [groovy](http://www.groovy-lang.org/) is needed to run the data load scripts 
+* An instance of Pivotal Cloud Foundry that can create RabbitMQ and Spring Cloud Services (version 1.1.0) service instances.
 
 ## Setup
 Data for this demonstration needs to be transformed from the OpenXC format and then loaded into RabbitMQ.  To do so, [download](https://cloud.spring.io/spring-cloud-dataflow/) the SCDF bits and follow the documentation to install a Spring Cloud Data Flow server for the target environment.
