@@ -35,5 +35,7 @@ There are two different types of data in the data folder of this repo.  For each
 
 Once RabbitMQ is configured, copy one of the data files to ```/tmp/openxc-input.json```, and then execute the groovy script found in the scripts folder of this repo.
 
-```groovy OpenXCFileParser.groovy```
+```
+groovy OpenXCFileParser.groovy
+```
 	
