@@ -41,10 +41,10 @@ There are two different types of data in the data folder of this repo.  For each
 * A queue named ```vehicle-data-queue```.
 * An exchange called ```vehicle-data``` bound to the above queue with a routing key of ```all```.
 
-Once RabbitMQ is configured, copy one of the data files to ```/tmp/openxc-input.json```, and then execute the groovy script found in the scripts folder of this repo.
+Once RabbitMQ is configured, copy one of the data files to ```/tmp/openxc-input.json```, and then execute the groovy script found in the scripts folder of this repo.  This script takes the URL of the SCDF HTTP module as an parameter.
 
 ```
-groovy OpenXCFileParser.groovy
+groovy OpenXCFileParser.groovy <SCDF HTTP module URL>
 ```
 
 ## Running the Demo
