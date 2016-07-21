@@ -23,9 +23,7 @@ def timestamp
 def lngFound = false
 def latFound = false
 
-//def url = new URL('http://localhost:9000')
-def url = new URL('http://dataflow-balloonlike-demonolatry-vehicle-data-stream-http.pcf8.cloud.fe.pivotal.io')
-
+def url = new URL(args[0])
 
 lines.each { line ->
     def jsonPayload = slurper.parseText(line)
