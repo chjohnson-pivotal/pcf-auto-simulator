@@ -9,7 +9,9 @@ This is an example project that demonstrates how to build applications in a clou
 * Distributed tracing
 * Simple data ingestion with Spring Cloud Data Flow
 
-This project is intended to be run either locally on a laptop or deployed on a Pivotal Cloud Foundry instance.  The applications use Spring Cloud features for configuration management, service registry, and circuit breaker functionality as well as [Zipkin](https://github.com/openzipkin/zipkin) and [Spring Cloud Sleuth](http://cloud.spring.io/spring-cloud-sleuth/) for distributed tracing.  This repo contains a sample registry server and configuration server for use if the deployed locally.  If deployed on PCF the applications can use Spring Cloud Services config server and service registry instances for that functionality.  
+This project is intended to be run either locally on a laptop or deployed on a Pivotal Cloud Foundry instance.  The applications use Spring Cloud features for configuration management, service registry, and circuit breaker functionality as well as [Zipkin](https://github.com/openzipkin/zipkin) and [Spring Cloud Sleuth](http://cloud.spring.io/spring-cloud-sleuth/) for distributed tracing.  This repo contains a sample registry server and configuration server for use if the deployed locally.  If deployed on PCF the applications can use Spring Cloud Services config server and service registry instances for that functionality.  The following diagram depicts the high level architecture of this demo.
+
+![Architecture Diagram](/documentation/diagram.png)
 
 ## Requirements
 The following tools are needed to run this demo:
