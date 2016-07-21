@@ -9,7 +9,9 @@ This is an example project that demonstrates how to build applications in a clou
 * Distributed tracing
 * Simple data ingestion with Spring Cloud Data Flow
 
-This project is intended to be run either locally on a laptop or deployed on a Pivotal Cloud Foundry instance.  The applications use Spring Cloud features for configuration management, service registry, and circuit breaker functionality as well as [Zipkin](https://github.com/openzipkin/zipkin) and [Spring Cloud Sleuth](http://cloud.spring.io/spring-cloud-sleuth/) for distributed tracing.  This repo contains a sample registry server and configuration server for use if the deployed locally.  If deployed on PCF the applications can use Spring Cloud Services config server and service registry instances for that functionality.  
+This project is intended to be run either locally on a laptop or deployed on a Pivotal Cloud Foundry instance.  The applications use Spring Cloud features for configuration management, service registry, and circuit breaker functionality as well as [Zipkin](https://github.com/openzipkin/zipkin) and [Spring Cloud Sleuth](http://cloud.spring.io/spring-cloud-sleuth/) for distributed tracing.  This repo contains a sample registry server and configuration server for use if the deployed locally.  If deployed on PCF the applications can use Spring Cloud Services config server and service registry instances for that functionality.  The following diagram depicts the high level architecture of this demo.
+
+![Architecture Diagram](/documentation/diagram.png)
 
 ## Requirements
 The following tools are needed to run this demo:
@@ -44,4 +46,25 @@ Once RabbitMQ is configured, copy one of the data files to ```/tmp/openxc-input.
 ```
 groovy OpenXCFileParser.groovy
 ```
-	
+
+## Running the Demo
+To run this demo you will need a Spring Cloud service registry and configuration server.  This repository contains an implementation of each for running the demo locally.  When running on Pivotal Cloud Foundry, Spring Cloud Services should be used to create instances of each.  In either case, the configuration server should be pointed to the config directory of this repo for access to the yaml files each application needs.  
+
+When setting up on PCF, SCS has moved repository configuration to the command line.  Once the config server service instance is created on PCF, run the following command:
+
+```
+cf create-service p-config-server standard config-server -c '{"git": { "uri": "<git repo>", "repos.name.searchPaths": "config" } }'
+```
+
+Once the registry server and config server are running, deploy the various applications in this order:
+
+* zipkin server
+* gas price service
+* repair service
+* places service
+* dealer service
+* auto simulator
+
+Each of these services is a separate Spring Boot application that can be built and run separately either locally or on Cloud Foundry.  If run locally, their ports are specified in their configuration yaml file provided by the config server.  Once everything is running, open the url for the auto simulator application in a browser.  You should see this screen:
+
+![Main start screen](/documentation/startup-page.png)
