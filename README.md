@@ -56,12 +56,12 @@ cf create-service p-config-server standard config-server -c '{"git": { "uri": "<
 
 Once the registry server and config server are running, deploy the various applications in this order:
 
-*zipkin server
-*gas price service
-*repair service
-*places service
-*dealer service
-*auto simulator
+* zipkin server
+* gas price service
+* repair service
+* places service
+* dealer service
+* auto simulator
 
 Each of these services is a separate Spring Boot application that can be built and run separately either locally or on Cloud Foundry.  If run locally, their ports are specified in their configuration yaml file provided by the config server.  Once everything is running, open the url for the auto simulator application in a browser.  You should see this screen:
 
