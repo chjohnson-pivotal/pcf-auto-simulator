@@ -65,4 +65,4 @@ Once the registry server and config server are running, deploy the various appli
 
 Each of these services is a separate Spring Boot application that can be built and run separately either locally or on Cloud Foundry.  If run locally, their ports are specified in their configuration yaml file provided by the config server.  Once everything is running, open the url for the auto simulator application in a browser.  You should see this screen:
 
-![Main start screen](/documentation/startup-screen.png)
+![Main start screen](/documentation/startup-page.png)
