@@ -56,7 +56,7 @@ When setting up on PCF, SCS has moved repository configuration to the command li
 cf create-service p-config-server standard config-server -c '{"git": { "uri": "<git repo>", "repos.name.searchPaths": "config" } }'
 ```
 
-Once the registry server and config server are running, deploy the various applications in this order:
+Once the registry server and config server are running, deploy the various applications below (deploy the auto simulator app last):
 
 * zipkin server
 * gas price service
@@ -65,6 +65,13 @@ Once the registry server and config server are running, deploy the various appli
 * dealer service
 * auto simulator
 
-Each of these services is a separate Spring Boot application that can be built and run separately either locally or on Cloud Foundry.  If run locally, their ports are specified in their configuration yaml file provided by the config server.  Once everything is running, open the url for the auto simulator application in a browser.  You should see this screen:
+Each of these services is a separate Spring Boot application that can be built and run separately either locally or on Cloud Foundry.  If run locally, their ports are specified in their configuration yaml file provided by the config server.  If run on PCF create services with the following names:
+
+* config-server - An instance of an SCS config server
+* service-registry - An instance of an SCS service registry
+* circuit-breaker-dashboard-service - An instance of an SCS circuit breaker dashboard
+* rabbitmq-service - An instance of RabbitMQ 
+
+Each service should be bound to each application except the zipkin server.  It only requires the rabbitmq-service.  Once everything is running, open the url for the auto simulator application in a browser.  You should see this screen:
 
 ![Main start screen](/documentation/startup-page.png)
