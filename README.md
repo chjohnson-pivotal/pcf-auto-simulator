@@ -26,20 +26,20 @@ Data for this demonstration needs to be transformed from the OpenXC format and t
 Once the server is running create a stream that accepts data on an http port and feeds it to RabbitMQ.  The stream needs to take this form:
 
 ```
-http --port=8080 | rabbit --exchange=vehicle-data --routing-key=all --username=<rabbit user> --password=<rabbit password> --host=<rabbit host> --virtual-host=<rabbit vhost>
+http --port=8080 | rabbit --exchange=vehicle-data --routing-key=1ve --username=<rabbit user> --password=<rabbit password> --host=<rabbit host> --virtual-host=<rabbit vhost>
 ```
 
 Here is an example stream create script taken from a Spring Cloud Data Flow deployment on Pivotal Cloud Foundry:
 
 ```
-http --port=8080 | rabbit --exchange=vehicle-data --routing-key=all --username=966d3d70-c9bf-4134-9524-c77448f476ff --password=3k6f6p8tpnilopfh3j9uugg0vd --host=10.68.151.58 --virtual-host=b25035a8-ab44-484c-8e73-7879aa1c0cfd 
+http --port=8080 | rabbit --exchange=vehicle-data --routing-key=1 --username=966d3d70-c9bf-4134-9524-c77448f476ff --password=3k6f6p8tpnilopfh3j9uugg0vd --host=10.68.151.58 --virtual-host=b25035a8-ab44-484c-8e73-7879aa1c0cfd 
 ```
 
 ## Ingesting Data
 There are two different types of data in the data folder of this repo.  For each type there are two versions:  a full file, and a smaller one consisting of a subset of full data.  The small file can be used to speed up testing or if using a hosted RabbitMQ instance with a free plan.  Within RabbitMQ, set up the following: 
 
 * A queue named ```vehicle-data-queue```.
-* An exchange called ```vehicle-data``` bound to the above queue with a routing key of ```all```.
+* An exchange called ```vehicle-data``` bound to the above queue with a routing key of ```1```.
 
 Once RabbitMQ is configured, copy one of the data files to ```/tmp/openxc-input.json```, and then execute the groovy script found in the scripts folder of this repo.  This script takes the URL of the SCDF HTTP module as an parameter.
 
@@ -75,3 +75,26 @@ Each of these services is a separate Spring Boot application that can be built a
 Each service should be bound to each application except the zipkin server.  It only requires the rabbitmq-service.  Once everything is running, open the url for the auto simulator application in a browser.  You should see this screen:
 
 ![Main start screen](/documentation/startup-page.png)
+
+To start the demo processing data from the ```vehicle-data-queue``` message queue, press the green start button at the top of the screen:
+
+![Start Button](/documentation/start-button.png)
+
+Once clicked, the demo will take about 10 seconds to start loading data.  Once the first record is pulled from the message queue, the map will refresh with the current location of the vehicle, then the frame on the right should be populated with local gas stations and car dealers.  
+
+![Gas Stations](/documentation/gas_stations.png)
+
+Click the 'Gas Stations' and 'Dealers' tabs to move back and forth and view the data.  Gas stations will only appear if the fuel level indicator is yellow.  Likewise, the dealers will only appear if the vehicle needs service which is indicated by the condition box at the top of the screen.  The thresholds can be adjusted using the fields to the left of the indicators.
+
+![Indicators](/documentation/indicators.png)
+
+To demonstrate the recovery capabilities of PCF, click the kill button at the top right corner of the screen.  This will terminate the app and PCF should restart it automatically.  Additionally, the IP address / instance index is available in order to demonstrate the scaling capabilities of the platform.  Use the bound to Rabbit indicator to demonstrate service binding capabilities.
+
+![Operational Capabilities](/documentation/kill_bind_scale.png)
+
+
+
+
+
+
+
