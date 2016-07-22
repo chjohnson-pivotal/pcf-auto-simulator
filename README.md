@@ -56,14 +56,14 @@ When setting up on PCF, SCS has moved repository configuration to the command li
 cf create-service p-config-server standard config-server -c '{"git": { "uri": "<git repo>", "repos.name.searchPaths": "config" } }'
 ```
 
-Once the registry server and config server are running, deploy the various applications below (deploy the auto simulator app last):
+Once the registry server and config server are running, use the manifest in the root of the repo to deploy the various applications below (deploy the auto simulator app last):
 
-* zipkin server
-* gas price service
-* repair service
-* places service
-* dealer service
-* auto simulator
+* simulator-zipkin
+* gas-price-service
+* repair-service
+* places-service
+* dealer-service
+* auto-simulator
 
 Each of these services is a separate Spring Boot application that can be built and run separately either locally or on Cloud Foundry.  If run locally, their ports are specified in their configuration yaml file provided by the config server.  If run on PCF create services with the following names:
 
