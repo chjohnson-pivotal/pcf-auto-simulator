@@ -53,7 +53,7 @@ To run this demo you will need a Spring Cloud service registry and configuration
 When setting up on PCF, SCS has moved repository configuration to the command line.  Once the config server service instance is created on PCF, run the following command:
 
 ```
-cf create-service p-config-server standard config-server -c '{"git": { "uri": "<git repo>", "repos.name.searchPaths": "config" } }'
+cf create-service p-config-server standard config-server -c '{"git": { "uri": "<git repo>", "searchPaths": "config" } }'
 ```
 
 Once the registry server and config server are running, use the manifest in the root of the repo to deploy the various applications below (deploy the auto simulator app last):
