@@ -22,9 +22,10 @@ public class AutoSimulatorApplication {
         SpringApplication.run(AutoSimulatorApplication.class, args);
     }
 
+/*
     @Bean
     public AlwaysSampler defaultSampler() {
       return new AlwaysSampler();
     }
-       
+*/       
 }

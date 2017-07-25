@@ -1,19 +1,20 @@
 spring:
   application:
     name: ${vcap.application.name:places-service}
+  rabbitmq:
+    host: ${RABBIT_HOST:localhost}     
   sleuth:
-    hystrix:
-      strategy.enabled: false    
+    sampler:
+      percentage: 1    
 
 security:
   basic:
-    enabled: false
+    enabled: false  
+       
+feign:
+  hystrix:
+    enabled: false   
     
-hystrix:
-  command:
-    default:    
-      execution:
-        isolation:
-          thread:
-            timeoutInMilliseconds: 10000
+logging:
+  file: /Users/cjohnson/Documents/demo-workspace/gas-price-service.log    
             

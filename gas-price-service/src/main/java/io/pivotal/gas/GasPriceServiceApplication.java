@@ -18,8 +18,11 @@ public class GasPriceServiceApplication {
         SpringApplication.run(GasPriceServiceApplication.class, args);
     }
     
+/*
     @Bean
     public AlwaysSampler defaultSampler() {
       return new AlwaysSampler();
-    }    
+    }
+*/       
+ 
 }

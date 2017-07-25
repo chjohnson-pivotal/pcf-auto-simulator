@@ -2,24 +2,24 @@ spring:
   application:
     name: ${vcap.application.name:auto-simulator}
   sleuth:
-    integration:
-      enabled: true
-    hystrix:
-      strategy:
-        enabled: false    
+    sampler:
+      percentage: 1      
         
 security:
   basic:
-    enabled: false  
+    enabled: false    
     
-hystrix:
-  command:
-    default:    
-      execution:
-        isolation:
-          thread:
-            timeoutInMilliseconds: 10000
+feign:
+  hystrix:
+    enabled: false           
 
 logging:
-  level:
-    com.launchdarkly: TRACE            
+  file: /Users/cjohnson/Documents/demo-workspace/auto-simulator.log    
+
+---  
+spring:
+  profiles: development
+  
+  rabbitmq:
+    host: ${RABBIT_HOST:localhost}    
+  

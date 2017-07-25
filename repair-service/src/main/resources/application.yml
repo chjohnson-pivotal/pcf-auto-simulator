@@ -1,19 +1,20 @@
 spring:
   application:
     name: ${vcap.application.name:repair-service}
+  rabbitmq:
+    host: ${RABBIT_HOST:localhost} 
   sleuth:
-    hystrix:
-      strategy.enabled: false    
-
-hystrix:
-  command:
-    default:    
-      execution:
-        isolation:
-          thread:
-            timeoutInMilliseconds: 10000
+    sampler:
+      percentage: 1
       
 security:
   basic:
     enabled: false
+    
+feign:
+  hystrix:
+    enabled: false     
+    
+logging:
+  file: /Users/cjohnson/Documents/demo-workspace/repair-service.log    
     

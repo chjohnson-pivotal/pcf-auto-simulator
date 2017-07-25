@@ -1,5 +1,7 @@
 package io.pivotal.dealer;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -41,6 +43,8 @@ public class DealerController {
 	@Value("${dealer.service.apiKey}")
 	String key;
 	
+	private Log log = LogFactory.getLog(getClass());
+
 	@RequestMapping(method=RequestMethod.GET, value="/")
 	@ResponseBody
 	public String ping()
@@ -53,6 +57,7 @@ public class DealerController {
 	@ResponseBody
 	public Dealers dealers(@RequestParam("brand") String brand, @RequestParam("zipcode") String zipcode)
 	{
+		log.info("finding nearest dealers: " + zipcode);
 		Dealers dealers = dealerClient.nearestDealerships(zipcode, radius, brand, state, pageNum, pageSize, sortby, view, key);
 		return dealers;
 	}

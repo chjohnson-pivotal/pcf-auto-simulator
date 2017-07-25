@@ -18,8 +18,11 @@ public class DealerServiceApplication {
         SpringApplication.run(DealerServiceApplication.class, args);
     }
     
+/*
     @Bean
     public AlwaysSampler defaultSampler() {
       return new AlwaysSampler();
-    }        
+    }
+*/       
+    
 }

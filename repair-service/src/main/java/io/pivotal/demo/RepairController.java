@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +24,8 @@ public class RepairController {
 	private static int START_OF_DAY = 8;
 	private static int END_OF_DAY = 18; // military time
 	private static int MAX_NUMBER_OF_SLOTS = 6;
+
+	private Log log = LogFactory.getLog(getClass());
 	
 	@RequestMapping(method=RequestMethod.GET, value="/")
 	@ResponseBody
@@ -33,6 +37,8 @@ public class RepairController {
 	@RequestMapping(value="/ServiceOpenings/{dealerId}")
 	public @ResponseBody List<Schedule> findServiceOpenings(@PathVariable("dealerId") String dealerId)
 	{
+		log.info("calculating availability schedule");
+
 		ArrayList<Schedule> schedules = new ArrayList<Schedule>();
 		
 		Calendar today = Calendar.getInstance();

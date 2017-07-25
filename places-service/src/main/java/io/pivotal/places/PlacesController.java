@@ -1,5 +1,7 @@
 package io.pivotal.places;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,8 @@ public class PlacesController {
 	
 	@Value("${google.service.apiKey}")
 	private String apiKey;
+	
+	private Log log = LogFactory.getLog(getClass());
 	
 	@RequestMapping(method=RequestMethod.GET, value="/")
 	@ResponseBody
@@ -40,6 +44,8 @@ public class PlacesController {
 	@ResponseBody
 	public PostalCode reverseGeocode(@RequestParam("lat") String lat, @RequestParam("lng") String lng)
 	{
+    	log.info("reverse geocoding the lat and lng passed");
+
 		ReverseGeocodeResponse resp = googlePlacesClient.reverseGeocode(lat + "," + lng, apiKey);
 		PostalCode p = new PostalCode();
 		for (AddressResult address : resp.getResults()) {

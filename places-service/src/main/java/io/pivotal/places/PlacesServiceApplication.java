@@ -20,8 +20,11 @@ public class PlacesServiceApplication {
         SpringApplication.run(PlacesServiceApplication.class, args);
     }
         
+/*
     @Bean
     public AlwaysSampler defaultSampler() {
       return new AlwaysSampler();
-    }        
+    }
+*/       
+       
 }

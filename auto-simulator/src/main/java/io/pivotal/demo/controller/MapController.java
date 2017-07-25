@@ -15,6 +15,8 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -49,6 +51,8 @@ public class MapController {
     @Autowired 
     private RabbitTemplate rabbitTemplate;
     
+	private Log log = LogFactory.getLog(getClass());
+    
     @RequestMapping("/dealershipOpenings")
 //    @HystrixCommand(fallbackMethod = "defaultSchedule")
 	public @ResponseBody List<Schedule> dealershipOpenings(@RequestParam(required=true) Long dealerId) {
@@ -70,6 +74,7 @@ public class MapController {
 	public @ResponseBody GasStations nearestGasStationsWithPrices(@RequestParam(required=true) String lat, 
 																  @RequestParam(required=true) String lng,
 																  @RequestParam(required=true) Integer distance) {
+    	log.info("calling gas station service");
 		return gasStationClient.nearestGasStationsWithPrices(lat, lng, distance);
 		
 	}    
@@ -78,13 +83,19 @@ public class MapController {
 	public @ResponseBody Dealerships nearestDealerships(@RequestParam(required=true) String lat, 
 															 @RequestParam(required=true) String lng,
 															 @RequestParam(required=true) String brand) {
-		Geo geo = geocodeClient.geocode(lat, lng);
+
+    	log.info("calling geocode service");
+    	Geo geo = geocodeClient.geocode(lat, lng);
+    	
+    	log.info("calling dealer service");
 		return dealershipsClient.nearestDealerships(brand, geo.getPostalCode());
 	}    
     
     @RequestMapping("/vehicleInfo")
     public @ResponseBody VehicleInfo vehicleInfo() throws Exception {
 
+    	log.info("getting next vehicle data record");
+    	
     	String json = new String((byte[])rabbitTemplate.receiveAndConvert(queueName));
 		json = java.net.URLDecoder.decode(json, "UTF-8");
     	ObjectMapper mapper = new ObjectMapper();

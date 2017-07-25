@@ -8,23 +8,10 @@ spring:
     host: ${RABBIT_HOST:localhost}
   datasource:
     initialize: true
-        
----
-spring:
-  profiles: development
-  datasource:
-    schema: classpath:/mysql.sql
-    url: jdbc:mysql://localhost/zipkin
-    username: zipkin
-    password: passw0rd
-# Switch this on to create the schema on startup:
-    initialize: true
-    continueOnError: true
   sleuth:
-    enabled: false
-zipkin:
-  storage:
-    type: mysql # default is mem (in-memory)
+    enabled: false    
+        
+
     
 
       
